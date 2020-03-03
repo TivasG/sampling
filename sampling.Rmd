@@ -1,0 +1,28 @@
+---
+title: "sampling"
+author: "Tivas Gupta"
+date: "3/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(googlesheets4)
+library(fs)
+library(tidyverse)
+library(janitor)
+sheets_deauth()
+```
+
+```{r, message = FALSE}
+distribution <- read_sheet("https://docs.google.com/spreadsheets/d/14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA/edit#gid=0")
+
+#View(distribution)
+ggplot(distribution, aes(x = Red)) + geom_histogram(bins = 25)
+
+distribution %>%
+  arrange(desc(Red)) %>%
+  head(1) %>%
+  select(Partners, Red)
+```
+
