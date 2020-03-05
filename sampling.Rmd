@@ -18,7 +18,7 @@ sheets_deauth()
 distribution <- read_sheet("https://docs.google.com/spreadsheets/d/14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA/edit#gid=0")
 
 #View(distribution)
-ggplot(distribution, aes(x = Red)) + geom_histogram(bins = 25)
+ggplot(distribution, aes(x = Red)) + geom_histogram(bins = 20)
 
 distribution %>%
   arrange(desc(Red)) %>%

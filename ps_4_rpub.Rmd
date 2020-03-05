@@ -1,0 +1,51 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, message = FALSE, include = FALSE}
+
+#Need to install packages. Set message = FALSE because there are some conflicts
+#in the packages that do not affect the code.
+
+library(tidycensus)
+library(tidyverse)
+library(scales)
+library(gt)
+
+options(scipen=999)
+
+
+census_api_key("8fdac3e0cf4f9251c42013f3fbbc5b85edd1ed45")
+
+```
+
+```{r, include=FALSE}
+
+# We will start from the code from Kane's textbook, and work our way from there.
+# Set message = False because I don't need to know the source of the acs data.
+# Include = False so the loading wouldn't show up in the knit.
+
+CA_inc <- get_acs(geography = "county", 
+                     variables = "B19013_001", 
+                     state = "California",
+                     year = 2018,
+                     geometry = TRUE) 
+#glimpse(CA_inc)
+
+
+
+```
+
+```{r}
+CA_inc %>%
+ggplot(aes(fill = estimate)) +
+  #facet_wrap(~ variable) +
+  geom_sf() + 
+  scale_fill_viridis_c(option = "plasma",
+                       direction = -1, label = comma) +
+   labs(title = "Median Income by County in California",
+       caption = "Source: American Communities Survey 2018",
+       fill = "Median Income") +
+  theme_void()
+
+```
